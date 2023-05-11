@@ -2,6 +2,10 @@ import { reactive } from "vue";
 
 export const store = reactive(
     {
-        arrayCards: []
+        arrayFilmsTVseries: [],
+        testoRicerca: '',
+        loadingData: false,
+        validLanguages: ['it', 'eng', 'fr'],
+        cardsPerRow: 4
     }
 )
