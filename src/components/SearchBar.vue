@@ -12,13 +12,13 @@ export default {
 </script>
 
 <template>
-    <div class="debug bg-dark flex flex-dir-row just-cont-between align-it-center padd-10">
+    <div class="bg-dark flex flex-dir-row just-cont-between align-it-center padd-10">
 
-        <div class="font-size-25 col-super-dark-red text-uppercase debug">
+        <div class="font-size-25 col-super-dark-red text-uppercase">
             Boolflix
         </div>
 
-        <div class="debug">
+        <div>
             <input type="text" placeholder="Ricerca film o serie tv..." v-model="store.testoRicerca" class="padd-5"
                 id="ricercaFilmSerieTV">
             <button type="submit" @click.prevent="$emit('nomeEmit')" class="padd-5" id="buttonRicercaFilmSerieTV">
