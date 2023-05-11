@@ -26,14 +26,14 @@ export default {
 
             <div class="style-hover-card">
                 <div class="col-white">
-                    <span class="col-white text-bold">Titolo</span>: {{ elem.title }} <br>
+                    <span class="col-white text-bold">Titolo: </span> {{ elem.title }} <br>
 
                     <div v-if="elem.original_title == false" class="col-white"></div>
                     <div v-else class="col-white">
-                        <span class="col-white text-bold">Titolo originale</span>: {{ elem.original_title }}
+                        <span class="col-white text-bold">Titolo originale: </span> {{ elem.original_title }}
                     </div>
 
-                    <span class="col-white text-bold">Voto</span>:
+                    <span class="col-white text-bold">Voto: </span>
 
                     <div v-if="elem.vote_average == false" class="disp-inline-block">
                         <i class="fa-solid fa-star-half col-white mr-5"></i>
@@ -42,9 +42,26 @@ export default {
                         <i v-for="(idx) in elem.vote_average" class="fa-solid fa-star col-white mr-5"></i>
                     </div> <br>
 
-                    <span class="col-white text-bold">Overview</span>: {{ elem.overview }}
+                    <span class="col-white text-bold">Overview: </span> {{ elem.overview }}
                     <br>
-                    <span class="col-white text-bold">Original language</span>: {{ elem.original_language }}
+                    <div class="col-white flex flex-dir-row">
+                        <div class="col-white text-bold">
+                            Original language:
+                        </div>
+                        <div v-if="elem.original_language == 'en'" class="ml-5 width-10">
+                            <img src="https://www.crwflags.com/fotw/images/u/us.gif" alt="" class="img-fluid"
+                                style="display: inline-block;">
+                        </div>
+                        <div v-else-if="elem.original_language == 'it'" class="ml-5 width-10">
+                            <img src="https://www.crwflags.com/fotw/images/i/it.gif" alt="" class="img-fluid"
+                                style="display: inline-block;">
+                        </div>
+                        <div v-else-if="elem.original_language == 'fr'" class="ml-5 width-10">
+                            <img src="https://www.crwflags.com/fotw/images/f/fr.gif" alt="" class="img-fluid"
+                                style="display: inline-block;">
+                        </div>
+                    </div>
+
                     <br>
                 </div>
             </div>
