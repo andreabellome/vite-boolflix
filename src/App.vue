@@ -39,7 +39,7 @@ export default {
         }
 
       } else { /* if user DID NOT search something */
-        testoRicercaUtente = 'facebook';
+        testoRicercaUtente = 'instagram';
       }
 
       /* extract all the info from the API call --> MOVIES */
@@ -89,8 +89,14 @@ export default {
           store.arrayFilmsTVseries.splice(indexNull[i], 1);
         }
 
-        /* update film score and original title */
+        let flagids = store.flags.map(function (idflag) {
+          return idflag.flagid;
+        })
+
+        /* update film score, original title and flag */
         for (let i = 0; i < store.arrayFilmsTVseries.length; i++) {
+
+          /* round the score and put max=5 */
           store.arrayFilmsTVseries[i].vote_average = Math.round(store.arrayFilmsTVseries[i].vote_average)
           if (store.arrayFilmsTVseries[i].vote_average > 5) {
             store.arrayFilmsTVseries[i].vote_average = 5;
@@ -99,14 +105,24 @@ export default {
             store.arrayFilmsTVseries[i].vote_average = false;
           }
 
+          /* check if original title is the same of the title */
           if (store.arrayFilmsTVseries[i].original_title == store.arrayFilmsTVseries[i].title) {
             store.arrayFilmsTVseries[i].original_title = false;
           }
+
+          /* check if the flags are defined in score */
+          const index = flagids.indexOf(store.arrayFilmsTVseries[i].original_language)
+          if (index > -1) {
+            store.arrayFlags = store.arrayFlags.concat(store.flags[index]);
+          } else {
+            store.arrayFlags = store.arrayFlags.concat(store.flags[0]);
+            store.arrayFlags[i].isthere = false;
+
+          }
+          console.log(store.arrayFlags)
+
+
         }
-
-
-
-
 
       }
     },
