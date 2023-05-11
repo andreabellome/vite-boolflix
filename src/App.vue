@@ -22,32 +22,51 @@ export default {
     async chiamataAPI() {
 
       store.loadingData = true
+      store.arrayFilmsTVseries = [];
+
+      let page = 0;
+      let totalPages = 0;
+      let totalPagesMax = 10; /* max number of pages to look for */
+      let arrayFilmsTVseries = store.arrayFilmsTVseries;
+      let testoRicercaUtente = store.testoRicerca;
 
       if (store.testoRicerca !== '') { /* if user searched something */
 
-        let page = 0;
-        let totalPages = 0;
-        let totalPagesMax = 10; /* max number of pages to look for */
-        let arrayFilmsTVseries = store.arrayFilmsTVseries;
-        let testoRicercaUtente = store.testoRicerca;
+        testoRicercaUtente = store.testoRicerca;
 
         /* if the last letter is a blank space, eliminate such space */
         if (/\s/.test(testoRicercaUtente.slice(-1))) {
           testoRicercaUtente = testoRicercaUtente.slice(0, -1);
         }
 
-        /* extract all the info from the API call */
-        do {
-
-          let { data: res } = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=7b0fe496f2dadc8282a07240024e5a8b&query=${testoRicercaUtente}`, { params: { page: ++page } })
-          totalPages = res.total_pages;
-          arrayFilmsTVseries = arrayFilmsTVseries.concat(res.results);
-        } while (page < totalPages && page < totalPagesMax)
-
-        console.log(arrayFilmsTVseries, totalPages)
-
       } else { /* if user DID NOT search something */
-        console.log('barra di ricerca vuota')
+        testoRicercaUtente = 'batman';
+      }
+
+      /* extract all the info from the API call */
+      do {
+
+        let { data: res } = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=7b0fe496f2dadc8282a07240024e5a8b&query=${testoRicercaUtente}`, { params: { page: ++page } })
+        totalPages = res.total_pages;
+        store.arrayFilmsTVseries = store.arrayFilmsTVseries.concat(res.results);
+      } while (page < totalPages && page < totalPagesMax)
+
+      /* update poster path */
+      let indexNull = [];
+      for (let indi = 0; indi < store.arrayFilmsTVseries.length; indi++) {
+
+        /* check if any poster is null */
+        if (store.arrayFilmsTVseries[indi].poster_path == null || store.arrayFilmsTVseries[indi].poster_path == 'null') {
+          indexNull = indexNull.concat(indi)
+        }
+
+        store.arrayFilmsTVseries[indi].poster_path = store.posterPathDim + store.arrayFilmsTVseries[indi].poster_path
+      }
+
+      /* eliminate those that have null values */
+      indexNull.sort((a, b) => b - a);
+      for (let i = 0; i < indexNull.length; i++) {
+        store.arrayFilmsTVseries.splice(indexNull[i], 1);
       }
     },
 

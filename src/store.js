@@ -6,6 +6,6 @@ export const store = reactive(
         testoRicerca: '',
         loadingData: false,
         validLanguages: ['it', 'eng', 'fr'],
-        cardsPerRow: 4
+        posterPathDim: 'https://image.tmdb.org/t/p/w342'
     }
 )
