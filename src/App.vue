@@ -42,7 +42,7 @@ export default {
         testoRicercaUtente = 'facebook';
       }
 
-      /* extract all the info from the API call */
+      /* extract all the info from the API call --> MOVIES */
       do {
 
         let { data: res } = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=7b0fe496f2dadc8282a07240024e5a8b&query=${testoRicercaUtente}`, { params: { page: ++page } })
@@ -50,16 +50,26 @@ export default {
         store.arrayFilmsTVseries = store.arrayFilmsTVseries.concat(res.results);
       } while (page < totalPages && page < totalPagesMax)
 
+
+      /* extract all the info from the API call --> SERIES */
+      page = 0;
+      do {
+
+        let { data: res } = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=7b0fe496f2dadc8282a07240024e5a8b&query=${testoRicercaUtente}`, { params: { page: ++page } })
+        totalPages = res.total_pages;
+        store.arrayFilmsTVseries = store.arrayFilmsTVseries.concat(res.results);
+      } while (page < totalPages && page < totalPagesMax)
+
       console.log(store.arrayFilmsTVseries)
 
       if (store.arrayFilmsTVseries.length == 0) {
+
+        /* check if no results appear */
         store.noResults = true
-        console.log(store.noResults)
       } else {
 
-
+        /* some results have appeared */
         store.noResults = false
-        console.log(store.noResults)
 
         /* update poster path */
         let indexNull = [];
