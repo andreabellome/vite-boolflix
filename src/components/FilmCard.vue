@@ -14,15 +14,23 @@ export default {
 <template>
     <div class="debug flex flex-dir-row just-cont-evenly flex-wrap">
 
-
-
-        <!-- <div v-for="(elem, index) in store.arrayFilmsTVseries">
-            {{ store.arrayFilmsTVseries[0].poster_path }}
-        </div> -->
-
-        <div v-for="(elem, index) in store.arrayFilmsTVseries" class="card mb-3 mt-3" style="width: calc(100% / 6 - 10px);">
+        <div v-for="(elem, index) in store.arrayFilmsTVseries" class="card mb-3 mt-3 hoverable"
+            style="width: calc(100% / 6 - 10px); position: relative;">
             <img :src="elem.poster_path" class="card-img-top">
+
+            <div class="style-hover-card">
+                <div class="col-white">
+                    <span class="col-white text-bold">Titolo</span>: {{ elem.title }} <br>
+                    <span class="col-white text-bold">Titolo originale</span>: {{ elem.original_title }} <br>
+                    <span class="col-white text-bold">Overview</span>: {{ elem.overview }}
+                    <br>
+                    <span class="col-white text-bold">Overview</span>: {{ elem.overview }}
+                    <br>
+                </div>
+            </div>
+
         </div>
+
 
 
 
@@ -33,4 +41,41 @@ export default {
     </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.style-hover-card {
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 5px;
+
+    display: none;
+
+    background-color: rgba(27, 27, 27, 0.9);
+
+}
+
+.hoverable:hover>.style-hover-card {
+    display: block;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(192, 192, 192);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(192, 192, 192);
+}
+</style>

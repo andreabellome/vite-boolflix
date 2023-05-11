@@ -51,6 +51,8 @@ export default {
         store.arrayFilmsTVseries = store.arrayFilmsTVseries.concat(res.results);
       } while (page < totalPages && page < totalPagesMax)
 
+      console.log(store.arrayFilmsTVseries)
+
       /* update poster path */
       let indexNull = [];
       for (let indi = 0; indi < store.arrayFilmsTVseries.length; indi++) {
