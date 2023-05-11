@@ -40,7 +40,7 @@ export default {
         }
 
       } else { /* if user DID NOT search something */
-        testoRicercaUtente = 'batman';
+        testoRicercaUtente = 'facebook';
       }
 
       /* extract all the info from the API call */
@@ -69,6 +69,18 @@ export default {
       indexNull.sort((a, b) => b - a);
       for (let i = 0; i < indexNull.length; i++) {
         store.arrayFilmsTVseries.splice(indexNull[i], 1);
+      }
+
+      for (let i = 0; i < store.arrayFilmsTVseries.length; i++) {
+        store.arrayFilmsTVseries[i].vote_average = Math.round(store.arrayFilmsTVseries[i].vote_average)
+        if (store.arrayFilmsTVseries[i].vote_average > 5) {
+          store.arrayFilmsTVseries[i].vote_average = 5;
+        }
+        if (store.arrayFilmsTVseries[i].vote_average == 0) {
+          store.arrayFilmsTVseries[i].vote_average = false;
+        }
+
+        console.log(store.arrayFilmsTVseries[i].vote_average)
       }
     },
 
