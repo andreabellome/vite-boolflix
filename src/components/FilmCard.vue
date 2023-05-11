@@ -14,12 +14,14 @@ export default {
 <template>
     <div class="flex flex-dir-row just-cont-evenly flex-wrap">
 
+        <!-- div with no results found -->
         <div v-if="store.noResults == true">
             <h1 class=" text-bold">
                 Ups! No results found :(
             </h1>
         </div>
 
+        <!-- div with results -->
         <div v-else-if="store.noResults == false" v-for="(elem, index) in store.arrayFilmsTVseries"
             class="card mb-3 mt-3 hoverable" style="width: calc(100% / 6 - 10px); position: relative;">
             <img :src="elem.poster_path" class="card-img-top">
@@ -48,6 +50,9 @@ export default {
                         <div class="col-white text-bold">
                             Original language:
                         </div>
+
+
+
                         <div v-if="elem.original_language == 'en'" class="ml-5 width-10">
                             <img src="https://www.crwflags.com/fotw/images/u/us.gif" alt="" class="img-fluid"
                                 style="display: inline-block;">
@@ -59,6 +64,9 @@ export default {
                         <div v-else-if="elem.original_language == 'fr'" class="ml-5 width-10">
                             <img src="https://www.crwflags.com/fotw/images/f/fr.gif" alt="" class="img-fluid"
                                 style="display: inline-block;">
+                        </div>
+                        <div v-else class="ml-5 width-10 col-white">
+                            {{ elem.original_language }}
                         </div>
                     </div>
 
