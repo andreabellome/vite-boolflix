@@ -6,6 +6,7 @@ export const store = reactive(
         testoRicerca: '',
         loadingData: false,
         validLanguages: ['it', 'eng', 'fr'],
-        posterPathDim: 'https://image.tmdb.org/t/p/w342'
+        posterPathDim: 'https://image.tmdb.org/t/p/w342',
+        noResults: false
     }
 )

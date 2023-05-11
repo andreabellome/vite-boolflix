@@ -12,16 +12,27 @@ export default {
 </script>
 
 <template>
-    <div class="debug flex flex-dir-row just-cont-evenly flex-wrap">
+    <div class="flex flex-dir-row just-cont-evenly flex-wrap">
 
-        <div v-for="(elem, index) in store.arrayFilmsTVseries" class="card mb-3 mt-3 hoverable"
-            style="width: calc(100% / 6 - 10px); position: relative;">
+        <div v-if="store.noResults == true">
+            <h1 class=" text-bold">
+                Ups! No results found :(
+            </h1>
+        </div>
+
+        <div v-else-if="store.noResults == false" v-for="(elem, index) in store.arrayFilmsTVseries"
+            class="card mb-3 mt-3 hoverable" style="width: calc(100% / 6 - 10px); position: relative;">
             <img :src="elem.poster_path" class="card-img-top">
 
             <div class="style-hover-card">
                 <div class="col-white">
                     <span class="col-white text-bold">Titolo</span>: {{ elem.title }} <br>
-                    <span class="col-white text-bold">Titolo originale</span>: {{ elem.original_title }} <br>
+
+                    <div v-if="elem.original_title == false" class="col-white"></div>
+                    <div v-else class="col-white">
+                        <span class="col-white text-bold">Titolo originale</span>: {{ elem.original_title }}
+                    </div>
+
                     <span class="col-white text-bold">Voto</span>:
 
                     <div v-if="elem.vote_average == false" class="disp-inline-block">
@@ -30,12 +41,16 @@ export default {
                     <div v-else class=" disp-inline-block">
                         <i v-for="(idx) in elem.vote_average" class="fa-solid fa-star col-white mr-5"></i>
                     </div> <br>
+
                     <span class="col-white text-bold">Overview</span>: {{ elem.overview }}
+                    <br>
+                    <span class="col-white text-bold">Original language</span>: {{ elem.original_language }}
                     <br>
                 </div>
             </div>
 
         </div>
+
 
 
 

@@ -27,7 +27,6 @@ export default {
       let page = 0;
       let totalPages = 0;
       let totalPagesMax = 10; /* max number of pages to look for */
-      let arrayFilmsTVseries = store.arrayFilmsTVseries;
       let testoRicercaUtente = store.testoRicerca;
 
       if (store.testoRicerca !== '') { /* if user searched something */
@@ -53,34 +52,52 @@ export default {
 
       console.log(store.arrayFilmsTVseries)
 
-      /* update poster path */
-      let indexNull = [];
-      for (let indi = 0; indi < store.arrayFilmsTVseries.length; indi++) {
+      if (store.arrayFilmsTVseries.length == 0) {
+        store.noResults = true
+        console.log(store.noResults)
+      } else {
 
-        /* check if any poster is null */
-        if (store.arrayFilmsTVseries[indi].poster_path == null || store.arrayFilmsTVseries[indi].poster_path == 'null') {
-          indexNull = indexNull.concat(indi)
+
+        store.noResults = false
+        console.log(store.noResults)
+
+        /* update poster path */
+        let indexNull = [];
+        for (let indi = 0; indi < store.arrayFilmsTVseries.length; indi++) {
+
+          /* check if any poster is null */
+          if (store.arrayFilmsTVseries[indi].poster_path == null || store.arrayFilmsTVseries[indi].poster_path == 'null') {
+            indexNull = indexNull.concat(indi)
+          }
+
+          store.arrayFilmsTVseries[indi].poster_path = store.posterPathDim + store.arrayFilmsTVseries[indi].poster_path
         }
 
-        store.arrayFilmsTVseries[indi].poster_path = store.posterPathDim + store.arrayFilmsTVseries[indi].poster_path
-      }
-
-      /* eliminate those that have null values */
-      indexNull.sort((a, b) => b - a);
-      for (let i = 0; i < indexNull.length; i++) {
-        store.arrayFilmsTVseries.splice(indexNull[i], 1);
-      }
-
-      for (let i = 0; i < store.arrayFilmsTVseries.length; i++) {
-        store.arrayFilmsTVseries[i].vote_average = Math.round(store.arrayFilmsTVseries[i].vote_average)
-        if (store.arrayFilmsTVseries[i].vote_average > 5) {
-          store.arrayFilmsTVseries[i].vote_average = 5;
-        }
-        if (store.arrayFilmsTVseries[i].vote_average == 0) {
-          store.arrayFilmsTVseries[i].vote_average = false;
+        /* eliminate those that have null values */
+        indexNull.sort((a, b) => b - a);
+        for (let i = 0; i < indexNull.length; i++) {
+          store.arrayFilmsTVseries.splice(indexNull[i], 1);
         }
 
-        console.log(store.arrayFilmsTVseries[i].vote_average)
+        /* update film score and original title */
+        for (let i = 0; i < store.arrayFilmsTVseries.length; i++) {
+          store.arrayFilmsTVseries[i].vote_average = Math.round(store.arrayFilmsTVseries[i].vote_average)
+          if (store.arrayFilmsTVseries[i].vote_average > 5) {
+            store.arrayFilmsTVseries[i].vote_average = 5;
+          }
+          if (store.arrayFilmsTVseries[i].vote_average == 0) {
+            store.arrayFilmsTVseries[i].vote_average = false;
+          }
+
+          if (store.arrayFilmsTVseries[i].original_title == store.arrayFilmsTVseries[i].title) {
+            store.arrayFilmsTVseries[i].original_title = false;
+          }
+        }
+
+
+
+
+
       }
     },
 
