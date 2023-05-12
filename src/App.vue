@@ -112,14 +112,6 @@ export default {
             store.arrayFilmsTVseries[i].original_title = false;
           }
 
-          /* check if the flags are defined in score */
-          /* if (flagids.includes(store.arrayFilmsTVseries[i].original_language)) {
-            store.arrayFlags = store.arrayFlags.concat({
-              flagid: store.arrayFilmsTVseries[i].original_language,
-              flagurl: 
-            });
-          } */
-
           const index = flagids.indexOf(store.arrayFilmsTVseries[i].original_language)
           if (index > -1) {
             store.arrayFlags = store.arrayFlags.concat(store.flags[index]);
