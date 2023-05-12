@@ -23,6 +23,7 @@ export default {
 
       store.loadingData = true
       store.arrayFilmsTVseries = [];
+      store.arrayFlags = [];
 
       let page = 0;
       let totalPages = 0;
@@ -92,6 +93,7 @@ export default {
         let flagids = store.flags.map(function (idflag) {
           return idflag.flagid;
         })
+        console.log(flagids)
 
         /* update film score, original title and flag */
         for (let i = 0; i < store.arrayFilmsTVseries.length; i++) {
@@ -111,15 +113,22 @@ export default {
           }
 
           /* check if the flags are defined in score */
+          /* if (flagids.includes(store.arrayFilmsTVseries[i].original_language)) {
+            store.arrayFlags = store.arrayFlags.concat({
+              flagid: store.arrayFilmsTVseries[i].original_language,
+              flagurl: 
+            });
+          } */
+
           const index = flagids.indexOf(store.arrayFilmsTVseries[i].original_language)
           if (index > -1) {
             store.arrayFlags = store.arrayFlags.concat(store.flags[index]);
+            console.log(index)
           } else {
             store.arrayFlags = store.arrayFlags.concat(store.flags[0]);
             store.arrayFlags[i].isthere = false;
-
           }
-          console.log(store.arrayFlags)
+
 
 
         }

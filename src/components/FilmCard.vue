@@ -66,6 +66,7 @@ export default {
                         <div class="col-white text-bold">
                             Original language:
                         </div>
+
                         <!-- use flags of (some) countries defined in score -->
                         <div v-if="store.arrayFlags[index].isthere == true" class="ml-5 width-10">
                             <img :src="store.arrayFlags[index].flagurl" alt="" class="img-fluid"
